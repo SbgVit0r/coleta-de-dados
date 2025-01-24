@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 import pandas as pd
+
 headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:134.0) Gecko/20100101 Firefox/134.0',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -45,7 +46,7 @@ def get_aparicoes(soup):
 def get_personagem_infos(url):
     response = get_content(url)
     if response.status_code != 200:
-        print("Deu ruim ae!")
+        print("Não foi possivel coletar os dados!")
         return {}
     else:
         soup = BeautifulSoup(response.text, features='html.parser')
@@ -70,6 +71,8 @@ for i in tqdm(links):
     nome = i.strip('/').split('/')[-1].replace('-',' ').title()
     d['nome'] = nome
     data.append(d)
+#%%
+data 
 # %%
 df = pd.DataFrame(data)
 df
